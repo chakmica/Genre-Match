@@ -1,26 +1,50 @@
 body {
-    background-color: rgb(83, 75, 98)
+    position: relative;
+    background-color: rgb(83, 75, 98);
+}
+
+.header{
+    position: relative;
+    height: 30vh;
 }
 
 .header-container{
     position: relative;
     width: 100%;
-    height: 50%;
+    height: calc(95% - 4em);
+    text-align:center;
 }
 
 .header-text{
     position: absolute;
     color:rgb(27, 23, 37);
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    left: 40%;
-    top: 10%;
+    font-family:'Segoe UI', Tahoma;
     font-size: 50px;
+    height: 100%;
 }
 
-div.search {
+@media screen and (max-width: 300px){
+    .header-text{
+        left: 35%;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px){
+    .header-text{
+        left: 35%;
+    }
+}
+
+@media screen and (min-width: 1025px){
+    .header-text{
+        left: 40%;
+    }
+}
+
+.search {
     display: block;
     position: absolute;
-    top: 16%;
+    top: calc(95% - (4em));
     width: 70%;
     margin-left: 15%;
     margin-right: 10%;
@@ -39,13 +63,14 @@ div.search {
     line-height: 3.25em;
     width: 90%;
     border: none;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px 0px 0px 5px;
     vertical-align: middle;
+    background-color: rgb(255,255,255);
 }
 
 .search-button {
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0px;
     display: inline-block;
     vertical-align: middle;
     background-image: url("../images/search_icon.svg");
@@ -67,6 +92,86 @@ div.search {
     }
 }
 
-.content{
+.content-container{
     position:relative;
+    width: 50%;
+    height: auto;
+    background-color: rgb(83, 129, 202);
+    padding: 2svh;
+    border-radius: 10px;
+    margin-top: 5svh;
+    height: 55svh;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 5svh;
+}
+
+.content{
+    height: 54svh;
+}
+
+.artist-header{
+    position: relative;
+    display: block;
+    height: 10svh;
+    width: auto;
+    background-color: rgb(27, 23, 37);
+    color: rgb(255, 255, 255);
+    margin-right: 20%;
+    padding: 1svh;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.artist-title{
+    position: absolute;
+    left: 30%;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode';
+}
+
+.artist-details{
+    position: relative;
+    display: block;
+    height: 43svh;
+    background-color: rgb(27, 23, 37);
+    color: rgb(255, 255, 255);
+    border-radius: 0 10px 10px 10px;
+}
+
+.artist-portrait{
+    position: relative;
+    display: inline-block;
+    background-color:rgb(229, 183, 141);
+    border: solid 10px rgb(255,255,255);
+    border-radius: 10px;
+    margin-left: 10%;
+    height: 33svh;
+    width: 44svh;
+    text-align: center;
+}
+.artist-picture{
+    height: 30svh;
+    width: 40svh;
+}
+.artist-genres{
+    position: relative;
+    display: inline-block;
+    width: 30svh;
+    height: 15svh;
+    z-index: 100;
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+.genre {
+    position: relative;
+    background-color:rgb(229, 183, 141);
+    width: 100%;
+    border-radius: 10px;
+    border: solid 5px rgb(83, 75, 98);
+    margin-bottom: 5px;
+    height: 10svh;
+}
+h2 {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode';
+    text-align: center;
 }

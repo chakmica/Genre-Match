@@ -7,6 +7,8 @@ from webdriver_manager.chrome import ChromeDriverManager;
 from selenium.webdriver.chrome.options import Options;
 from flask import Flask, render_template, request, redirect, url_for, session;
 import os;
+import json;
+import requests;
 
 app = Flask(__name__, template_folder="Template")
 
@@ -15,14 +17,14 @@ def index():
     return render_template("index.html")
 @app.route("/search/<artist>")
 def search(artist):
-    genres = session.get("genres", None)
-    return render_template("search.html", artist=artist, genres=genres)
+    genres_image_json = session.get("genres_image_json", None)
+    return render_template("search.html", artist=artist, genres_image_json=genres_image_json)
 @app.route("/automation", methods = ["POST", "GET"])
 def run_automation():
     if request.method == "POST":
         artist = request.form.get("artist")
-        genres = find(artist)
-        session["genres"] = genres
+        genres_image_json = find(artist)
+        session["genres_image_json"] = genres_image_json
         return redirect(url_for("search", artist=artist))
 
 def find(band: str):
@@ -64,14 +66,26 @@ def find(band: str):
             genresOutput.append(output)
 
         if not genresOutput:
-            return "Artist not found"
+            return None
         else:
             output = genresOutput[0]
             for genre in genresOutput[1::1]:
                 output += ", " + genre
-            return output
-    except:
-        return "Artist not found"
+            #get image if available
+            imageLink = None
+            try:
+                image = driver.find_element(By.CLASS_NAME, "image")
+                imageLink = image.get_attribute("href")
+            except:
+                print(repr(e))
+                imageLink = None
+            genres_image_dict = {}
+            genres_image_dict["genres"] = genresOutput
+            genres_image_dict["image"] = imageLink
+            genres_image_json = json.dumps(genres_image_dict)
+            return genres_image_json
+    except Exception as e:
+        return None
 
 if __name__ == "__main__":
     SECRET = os.urandom(12)
