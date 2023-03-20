@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Genre Match</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+  </head>
+  <body>
+    <div class="header">
+        <div class="header-container">
+          <h1 class="header-text">Genre Match</h1>
+        </div>
+        <div class="search">
+          <form method="POST" action="/automation">
+            <input
+              class="search-bar"
+              type="text"
+              placeholder="Search Artist"
+              id="artist"
+              name="artist"
+            /><input
+              class="search-button"
+              type="submit"
+              id="search-button"
+              value=""
+              name="action"
+            />
+          </form>
+        </div>
+      </div>
+    <div class="content">
+      <h1>{{artist}}</h1>
+      <h2>{{genres}}</h2>
+    </div>
+  </body>
+</html>
