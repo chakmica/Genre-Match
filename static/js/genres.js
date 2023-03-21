@@ -1,11 +1,11 @@
 function getGenres(genres_image_json_string) {
   genres_image_json = JSON.parse(genres_image_json_string);
-  const output = document.createElement("div");
-  genres = genres_image_json.genres;
-  image = genres_image_json.image;
-  if (genres_image_json.genres == null) {
-    output.innerHTML = "<h2>Artist not found!</h2>";
-  } else {
+  if (genres_image_json != null) {
+    const output = document.createElement("div");
+    genres = genres_image_json.genres;
+    image = genres_image_json.image;
+    artist = genres_image_json.artist;
+    document.getElementById("artist-title").innerText = artist;
     if (genres.length < 3) {
       let loop = "";
       for (let i = 0; i < genres.length; i++) {
@@ -22,11 +22,10 @@ function getGenres(genres_image_json_string) {
         genres[2] +
         "</h2></div>";
     }
-    if (image != null){
-      console.log(image);
-      document.getElementById("artist-picture").src=image;
+    if (image != null) {
+      document.getElementById("artist-picture").src = image;
     }
+    const artist_div = document.getElementById("artist-genres");
+    artist_div.appendChild(output);
   }
-  const artist_div = document.getElementById("artist-genres");
-  artist_div.appendChild(output);
 }

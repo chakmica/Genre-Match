@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC;
 from webdriver_manager.chrome import ChromeDriverManager;
 from selenium.webdriver.chrome.options import Options;
 from flask import Flask, render_template, request, redirect, url_for, session;
+from PIL import Image;
 import os;
 import json;
 import requests;
@@ -29,6 +30,7 @@ def run_automation():
 
 def find(band: str):
     options = webdriver.ChromeOptions()
+    options.add_argument("--start-maximized")
     options.add_argument("--headless=new")
     options.add_argument("--blink-settings=imagesEnabled=false")
     options.add_experimental_option( "prefs",{'profile.managed_default_content_settings.javascript': 2})
@@ -66,7 +68,7 @@ def find(band: str):
             genresOutput.append(output)
 
         if not genresOutput:
-            return None
+            genres = None
         else:
             output = genresOutput[0]
             for genre in genresOutput[1::1]:
@@ -74,20 +76,29 @@ def find(band: str):
             #get image if available
             imageLink = None
             try:
-                image = driver.find_element(By.CLASS_NAME, "image")
-                imageLink = image.get_attribute("href")
-            except:
-                print(repr(e))
+                imageContainer = driver.find_element(By.CLASS_NAME, "image")
+                image = imageContainer.find_element(By.XPATH, ".//img")
+                imageLink = image.get_attribute("src")
+            except Exception as e:
+                print("inner block: " + repr(e))
                 imageLink = None
             genres_image_dict = {}
+            genres_image_dict["artist"] = band
             genres_image_dict["genres"] = genresOutput
             genres_image_dict["image"] = imageLink
             genres_image_json = json.dumps(genres_image_dict)
+            print(genres_image_json)
+            driver.quit()
             return genres_image_json
     except Exception as e:
-        return None
+        print("outer block: " + repr(e))
+        driver.quit()
+        genres_image_dict = {}
+        genres_image_json = json.dumps(None)
+        print(genres_image_json)
+        return genres_image_json
 
 if __name__ == "__main__":
     SECRET = os.urandom(12)
-    app.secret_key = 'the random string'
+    app.secret_key = SECRET
     app.run(debug=True)
