@@ -1,4 +1,4 @@
-# genre_match  
+# Genre-Match  
 Flask app to match music artists to their respective genre
 
 CURRENT FEATURES:  
