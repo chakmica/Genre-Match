@@ -74,7 +74,8 @@ body {
     display: inline-block;
     vertical-align: middle;
     background-image: url("../images/search_icon.svg");
-    background-color: rgb(229, 183, 141);
+    color: rgb(83, 75, 98);
+    background-color:rgb(229, 183, 141);
     background-repeat: no-repeat;
     background-position: center;
     width: 3em;
