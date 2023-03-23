@@ -80,22 +80,22 @@ def find(band: str):
                 image = imageContainer.find_element(By.XPATH, ".//img")
                 imageLink = image.get_attribute("src")
             except Exception as e:
-                print("inner block: " + repr(e))
+                #print("inner block: " + repr(e))
                 imageLink = None
             genres_image_dict = {}
             genres_image_dict["artist"] = band
             genres_image_dict["genres"] = genresOutput
             genres_image_dict["image"] = imageLink
             genres_image_json = json.dumps(genres_image_dict)
-            print(genres_image_json)
+            #print(genres_image_json)
             driver.quit()
             return genres_image_json
     except Exception as e:
-        print("outer block: " + repr(e))
+        #print("outer block: " + repr(e))
         driver.quit()
         genres_image_dict = {}
         genres_image_json = json.dumps(None)
-        print(genres_image_json)
+        #print(genres_image_json)
         return genres_image_json
 
 if __name__ == "__main__":
